@@ -1,0 +1,379 @@
+# Create these files in data/company_docs/ directory
+
+# ============================================
+# FILE: data/company_docs/hr_policy.txt
+# ============================================
+"""
+ACME Corporation - Human Resources Policy Manual
+
+1. LEAVE POLICY
+- Annual Leave: 20 days per year for full-time employees
+- Sick Leave: 10 days per year with medical certificate required after 3 consecutive days
+- Parental Leave: 12 weeks paid leave for primary caregivers
+- Public Holidays: All national holidays are observed
+
+2. WORKING HOURS
+- Standard working hours: Monday to Friday, 9:00 AM to 5:00 PM
+- Flexible working arrangements available after 6 months of employment
+- Remote work policy: Up to 3 days per week for eligible positions
+
+3. COMPENSATION AND BENEFITS
+- Salary reviews conducted annually in January
+- Performance bonuses up to 20% of annual salary based on individual and company performance
+- Health insurance coverage for employee and immediate family
+- Retirement contribution: Company matches up to 5% of employee contribution
+
+4. PROFESSIONAL DEVELOPMENT
+- Training budget: $2000 per employee per year
+- Conference attendance supported for relevant professional development
+- Internal mentorship program available
+
+5. CODE OF CONDUCT
+- Respect and professionalism expected at all times
+- Zero tolerance for harassment or discrimination
+- Confidentiality agreements must be maintained
+- Social media policy: Do not share confidential company information
+"""
+
+# ============================================
+# FILE: data/company_docs/it_sop.txt
+# ============================================
+"""
+ACME Corporation - IT Standard Operating Procedures
+
+1. SYSTEM ACCESS
+- New employee access: IT ticket must be raised by HR within 24 hours of joining
+- Access provisioning completed within 48 hours
+- Default access: Email, intranet, project management tools
+- Special access requires manager approval
+
+2. PASSWORD POLICY
+- Minimum 12 characters with uppercase, lowercase, numbers, and special characters
+- Password expiry: Every 90 days
+- No password reuse for last 5 passwords
+- Multi-factor authentication (MFA) mandatory for all systems
+
+3. DATA BACKUP
+- Automated daily backups at 2:00 AM
+- Weekly full backups on Sundays
+- Monthly archives stored off-site
+- Backup retention: Daily (7 days), Weekly (4 weeks), Monthly (12 months)
+
+4. INCIDENT REPORTING
+- Security incidents must be reported immediately to security@acme.com
+- IT helpdesk available 24/7: Call extension 5555 or email helpdesk@acme.com
+- Priority levels: Critical (1 hour), High (4 hours), Medium (1 day), Low (3 days)
+
+5. SOFTWARE INSTALLATION
+- Only approved software from company catalog can be installed
+- Request new software through IT portal with business justification
+- Personal software installation prohibited on company devices
+
+6. HARDWARE POLICY
+- Laptops refreshed every 3 years
+- Desktop monitors: dual 24-inch displays standard
+- Mobile devices: Company phone provided for eligible roles
+- Lost/stolen devices must be reported within 2 hours
+
+7. NETWORK SECURITY
+- VPN required for remote access to company systems
+- Guest WiFi available for visitors (request at reception)
+- USB drives must be encrypted and approved by IT
+- Email attachments scanned automatically for malware
+"""
+
+# ============================================
+# FILE: data/company_docs/legal_doc.txt
+# ============================================
+"""
+ACME Corporation - Legal Guidelines and Compliance
+
+1. INTELLECTUAL PROPERTY
+- All work products created during employment belong to ACME Corporation
+- Patent applications: Employees must disclose all inventions to legal department
+- Copyright: Company owns all code, documents, and creative works produced
+- Non-compete clause: 12 months after employment termination within same industry
+
+2. DATA PROTECTION AND PRIVACY
+- GDPR compliance mandatory for all EU customer data
+- Personal data collection requires explicit consent
+- Data retention policy: Customer data retained for 7 years after last transaction
+- Right to deletion: Customers can request data deletion within 30 days
+- Data breach notification: Must notify authorities within 72 hours
+
+3. CONTRACT MANAGEMENT
+- All contracts over $10,000 require legal review
+- Standard vendor contracts available in legal portal
+- Contract signing authority: Directors and above
+- Purchase orders valid for 90 days
+
+4. REGULATORY COMPLIANCE
+- Financial reporting: Quarterly and annual audits mandatory
+- Industry certifications: ISO 27001, SOC 2 Type II maintained
+- Export controls: Check compliance before international shipments
+- Anti-bribery policy: No gifts over $50 value to clients or vendors
+
+5. LITIGATION PROCEDURES
+- Document preservation: Do not delete relevant documents if litigation anticipated
+- External counsel: Pre-approved law firms listed in legal portal
+- Settlement authority: CFO approval required for settlements over $50,000
+
+6. EMPLOYEE AGREEMENTS
+- Confidentiality agreements signed at onboarding
+- Non-disclosure agreements required for contractors
+- Severance agreements: Standard package is 2 weeks per year of service
+"""
+
+# ============================================
+# FILE: data/company_docs/product_guide.txt
+# ============================================
+"""
+ACME Corporation - Product Guide 2024
+
+1. PRODUCT PORTFOLIO
+
+1.1 CloudSync Pro
+- Enterprise cloud storage and collaboration platform
+- Storage capacity: Starting at 100GB per user, scalable to unlimited
+- Features: Real-time collaboration, version control, advanced sharing
+- Pricing: $15/user/month (annual), $20/user/month (monthly)
+- Integration: Works with Microsoft Office, Google Workspace, Slack
+- Security: End-to-end encryption, compliance with SOC 2, ISO 27001
+
+1.2 DataFlow Analytics
+- Business intelligence and data visualization platform
+- Connect to 50+ data sources including SQL, MongoDB, Salesforce
+- Pre-built dashboards for sales, marketing, finance, operations
+- AI-powered insights and anomaly detection
+- Pricing: Starts at $99/month for 5 users, custom enterprise pricing
+- Training: Free onboarding webinar, documentation, 24/7 support
+
+1.3 SecureAuth Identity
+- Enterprise identity and access management solution
+- Single sign-on (SSO) for 1000+ applications
+- Multi-factor authentication (MFA) with biometrics support
+- Automated user provisioning and deprovisioning
+- Pricing: $8/user/month with annual commitment
+- Compliance: HIPAA, GDPR, PCI-DSS compliant
+
+2. SUPPORT AND SERVICES
+
+2.1 Support Tiers
+- Basic: Email support, 24-hour response time (included)
+- Professional: Phone and email, 4-hour response, $500/month
+- Enterprise: 24/7 priority support, dedicated account manager, custom pricing
+
+2.2 Professional Services
+- Implementation: Starting at $5,000
+- Custom development: $200/hour
+- Training: $1,500 per day (up to 20 participants)
+- Data migration: Custom quote based on data volume
+
+3. PRODUCT ROADMAP
+- Q1 2024: Mobile app redesign with offline mode
+- Q2 2024: Advanced AI features for DataFlow Analytics
+- Q3 2024: CloudSync Pro integration with Microsoft Teams
+- Q4 2024: SecureAuth passwordless authentication
+
+4. TECHNICAL REQUIREMENTS
+- Supported browsers: Chrome, Firefox, Safari, Edge (latest 2 versions)
+- Minimum bandwidth: 5 Mbps for optimal performance
+- Mobile apps: iOS 14+, Android 10+
+- API access: REST API with OAuth 2.0 authentication
+
+5. GETTING STARTED
+- Free trial: 14 days, no credit card required
+- Signup: Visit www.acme.com/signup
+- Demo: Schedule at www.acme.com/demo
+- Documentation: docs.acme.com
+"""
+
+# ============================================
+# INSTRUCTIONS TO CREATE FILES:
+# ============================================
+# Run this Python script to automatically create all files:
+
+import os
+
+# Define the data
+files = {
+    "data/company_docs/hr_policy.txt": """ACME Corporation - Human Resources Policy Manual
+
+1. LEAVE POLICY
+- Annual Leave: 20 days per year for full-time employees
+- Sick Leave: 10 days per year with medical certificate required after 3 consecutive days
+- Parental Leave: 12 weeks paid leave for primary caregivers
+- Public Holidays: All national holidays are observed
+
+2. WORKING HOURS
+- Standard working hours: Monday to Friday, 9:00 AM to 5:00 PM
+- Flexible working arrangements available after 6 months of employment
+- Remote work policy: Up to 3 days per week for eligible positions
+
+3. COMPENSATION AND BENEFITS
+- Salary reviews conducted annually in January
+- Performance bonuses up to 20% of annual salary based on individual and company performance
+- Health insurance coverage for employee and immediate family
+- Retirement contribution: Company matches up to 5% of employee contribution
+
+4. PROFESSIONAL DEVELOPMENT
+- Training budget: $2000 per employee per year
+- Conference attendance supported for relevant professional development
+- Internal mentorship program available
+
+5. CODE OF CONDUCT
+- Respect and professionalism expected at all times
+- Zero tolerance for harassment or discrimination
+- Confidentiality agreements must be maintained
+- Social media policy: Do not share confidential company information""",
+    
+    "data/company_docs/it_sop.txt": """ACME Corporation - IT Standard Operating Procedures
+
+1. SYSTEM ACCESS
+- New employee access: IT ticket must be raised by HR within 24 hours of joining
+- Access provisioning completed within 48 hours
+- Default access: Email, intranet, project management tools
+- Special access requires manager approval
+
+2. PASSWORD POLICY
+- Minimum 12 characters with uppercase, lowercase, numbers, and special characters
+- Password expiry: Every 90 days
+- No password reuse for last 5 passwords
+- Multi-factor authentication (MFA) mandatory for all systems
+
+3. DATA BACKUP
+- Automated daily backups at 2:00 AM
+- Weekly full backups on Sundays
+- Monthly archives stored off-site
+- Backup retention: Daily (7 days), Weekly (4 weeks), Monthly (12 months)
+
+4. INCIDENT REPORTING
+- Security incidents must be reported immediately to security@acme.com
+- IT helpdesk available 24/7: Call extension 5555 or email helpdesk@acme.com
+- Priority levels: Critical (1 hour), High (4 hours), Medium (1 day), Low (3 days)
+
+5. SOFTWARE INSTALLATION
+- Only approved software from company catalog can be installed
+- Request new software through IT portal with business justification
+- Personal software installation prohibited on company devices
+
+6. HARDWARE POLICY
+- Laptops refreshed every 3 years
+- Desktop monitors: dual 24-inch displays standard
+- Mobile devices: Company phone provided for eligible roles
+- Lost/stolen devices must be reported within 2 hours
+
+7. NETWORK SECURITY
+- VPN required for remote access to company systems
+- Guest WiFi available for visitors (request at reception)
+- USB drives must be encrypted and approved by IT
+- Email attachments scanned automatically for malware""",
+    
+    "data/company_docs/legal_doc.txt": """ACME Corporation - Legal Guidelines and Compliance
+
+1. INTELLECTUAL PROPERTY
+- All work products created during employment belong to ACME Corporation
+- Patent applications: Employees must disclose all inventions to legal department
+- Copyright: Company owns all code, documents, and creative works produced
+- Non-compete clause: 12 months after employment termination within same industry
+
+2. DATA PROTECTION AND PRIVACY
+- GDPR compliance mandatory for all EU customer data
+- Personal data collection requires explicit consent
+- Data retention policy: Customer data retained for 7 years after last transaction
+- Right to deletion: Customers can request data deletion within 30 days
+- Data breach notification: Must notify authorities within 72 hours
+
+3. CONTRACT MANAGEMENT
+- All contracts over $10,000 require legal review
+- Standard vendor contracts available in legal portal
+- Contract signing authority: Directors and above
+- Purchase orders valid for 90 days
+
+4. REGULATORY COMPLIANCE
+- Financial reporting: Quarterly and annual audits mandatory
+- Industry certifications: ISO 27001, SOC 2 Type II maintained
+- Export controls: Check compliance before international shipments
+- Anti-bribery policy: No gifts over $50 value to clients or vendors
+
+5. LITIGATION PROCEDURES
+- Document preservation: Do not delete relevant documents if litigation anticipated
+- External counsel: Pre-approved law firms listed in legal portal
+- Settlement authority: CFO approval required for settlements over $50,000
+
+6. EMPLOYEE AGREEMENTS
+- Confidentiality agreements signed at onboarding
+- Non-disclosure agreements required for contractors
+- Severance agreements: Standard package is 2 weeks per year of service""",
+    
+    "data/company_docs/product_guide.txt": """ACME Corporation - Product Guide 2024
+
+1. PRODUCT PORTFOLIO
+
+1.1 CloudSync Pro
+- Enterprise cloud storage and collaboration platform
+- Storage capacity: Starting at 100GB per user, scalable to unlimited
+- Features: Real-time collaboration, version control, advanced sharing
+- Pricing: $15/user/month (annual), $20/user/month (monthly)
+- Integration: Works with Microsoft Office, Google Workspace, Slack
+- Security: End-to-end encryption, compliance with SOC 2, ISO 27001
+
+1.2 DataFlow Analytics
+- Business intelligence and data visualization platform
+- Connect to 50+ data sources including SQL, MongoDB, Salesforce
+- Pre-built dashboards for sales, marketing, finance, operations
+- AI-powered insights and anomaly detection
+- Pricing: Starts at $99/month for 5 users, custom enterprise pricing
+- Training: Free onboarding webinar, documentation, 24/7 support
+
+1.3 SecureAuth Identity
+- Enterprise identity and access management solution
+- Single sign-on (SSO) for 1000+ applications
+- Multi-factor authentication (MFA) with biometrics support
+- Automated user provisioning and deprovisioning
+- Pricing: $8/user/month with annual commitment
+- Compliance: HIPAA, GDPR, PCI-DSS compliant
+
+2. SUPPORT AND SERVICES
+
+2.1 Support Tiers
+- Basic: Email support, 24-hour response time (included)
+- Professional: Phone and email, 4-hour response, $500/month
+- Enterprise: 24/7 priority support, dedicated account manager, custom pricing
+
+2.2 Professional Services
+- Implementation: Starting at $5,000
+- Custom development: $200/hour
+- Training: $1,500 per day (up to 20 participants)
+- Data migration: Custom quote based on data volume
+
+3. PRODUCT ROADMAP
+- Q1 2024: Mobile app redesign with offline mode
+- Q2 2024: Advanced AI features for DataFlow Analytics
+- Q3 2024: CloudSync Pro integration with Microsoft Teams
+- Q4 2024: SecureAuth passwordless authentication
+
+4. TECHNICAL REQUIREMENTS
+- Supported browsers: Chrome, Firefox, Safari, Edge (latest 2 versions)
+- Minimum bandwidth: 5 Mbps for optimal performance
+- Mobile apps: iOS 14+, Android 10+
+- API access: REST API with OAuth 2.0 authentication
+
+5. GETTING STARTED
+- Free trial: 14 days, no credit card required
+- Signup: Visit www.acme.com/signup
+- Demo: Schedule at www.acme.com/demo
+- Documentation: docs.acme.com"""
+}
+
+# Create files
+def create_company_docs():
+    for filepath, content in files.items():
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(content)
+        print(f"✓ Created: {filepath}")
+
+if __name__ == "__main__":
+    create_company_docs()
+    print("\n✅ All company documents created successfully!")

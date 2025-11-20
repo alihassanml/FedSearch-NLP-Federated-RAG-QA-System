@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+pydantic-settings
+torch
+transformers
+sentence-transformers
+accelerate
+faiss-cpu
+numpy
+pandas
+python-dotenv
+aiofiles
+peft
+bitsandbytes
