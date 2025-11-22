@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FedSearch-NLP | Enterprise Knowledge Base</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .message-user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .message-bot {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .typing-indicator span {
+            animation: blink 1.4s infinite;
+            animation-fill-mode: both;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes blink {
+            0%, 80%, 100% { opacity: 0; }
+            40% { opacity: 1; }
+        }
+        
+        .chat-container {
+            height: calc(100vh - 250px);
+            min-height: 400px;
+        }
+        
+        .source-badge {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .confidence-high {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .confidence-medium {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .confidence-low {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-focus:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white p-2 rounded-lg shadow">
+                        <i class="fas fa-search text-purple-600 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white text-3xl font-bold">FedSearch-NLP</h1>
+                        <p class="text-purple-100 text-sm">Enterprise Knowledge Assistant</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="status-indicator" class="flex items-center bg-white/20 px-4 py-2 rounded-full">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
+                        <span class="text-white text-sm font-medium">Online</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="bg-white border-b border-gray-200 py-4">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="stat-card bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-100 text-sm">Documents</p>
+                            <p id="doc-count" class="text-2xl font-bold">--</p>
+                        </div>
+                        <i class="fas fa-file-alt text-3xl opacity-50"></i>
+                    </div>
+                </div>
+                <div class="stat-card bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-purple-100 text-sm">Queries Today</p>
+                            <p id="query-count" class="text-2xl font-bold">0</p>
+                        </div>
+                        <i class="fas fa-question-circle text-3xl opacity-50"></i>
+                    </div>
+                </div>
+                <div class="stat-card bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-green-100 text-sm">Avg Confidence</p>
+                            <p id="avg-confidence" class="text-2xl font-bold">--%</p>
+                        </div>
+                        <i class="fas fa-chart-line text-3xl opacity-50"></i>
+                    </div>
+                </div>
+                <div class="stat-card bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-orange-100 text-sm">System Status</p>
+                            <p id="system-status" class="text-2xl font-bold">Ready</p>
+                        </div>
+                        <i class="fas fa-server text-3xl opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-5xl mx-auto">
+            <!-- Chat Container -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <!-- Chat Messages -->
+                <div id="chat-messages" class="chat-container overflow-y-auto p-6 space-y-4 scroll-smooth">
+                    <!-- Welcome Message -->
+                    <div class="text-center py-12 fade-in">
+                        <div class="bg-gradient-to-r from-purple-100 to-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-robot text-4xl text-purple-600"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome to FedSearch-NLP</h2>
+                        <p class="text-gray-600 mb-6">Ask me anything about company policies, procedures, or products!</p>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <button onclick="askSuggestion('What is the annual leave policy?')" class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm hover:bg-purple-200 transition">
+                                <i class="fas fa-calendar-alt mr-2"></i>Leave Policy
+                            </button>
+                            <button onclick="askSuggestion('What is the password policy?')" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm hover:bg-blue-200 transition">
+                                <i class="fas fa-lock mr-2"></i>Password Policy
+                            </button>
+                            <button onclick="askSuggestion('Tell me about CloudSync Pro')" class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm hover:bg-green-200 transition">
+                                <i class="fas fa-cloud mr-2"></i>Products
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="border-t border-gray-200 p-4 bg-gray-50">
+                    <form id="query-form" class="flex space-x-3">
+                        <input 
+                            type="text" 
+                            id="query-input" 
+                            placeholder="Ask a question about company documents..."
+                            class="flex-1 px-6 py-4 border border-gray-300 rounded-xl input-focus text-gray-800 placeholder-gray-400"
+                            required
+                        >
+                        <button 
+                            type="submit" 
+                            id="submit-btn"
+                            class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105 flex items-center space-x-2"
+                        >
+                            <span>Send</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <div class="mt-2 flex items-center justify-between text-xs text-gray-500">
+                        <div class="flex items-center space-x-4">
+                            <span><i class="fas fa-info-circle mr-1"></i>Press Enter to send</span>
+                            <button onclick="clearChat()" class="hover:text-purple-600 transition">
+                                <i class="fas fa-trash-alt mr-1"></i>Clear Chat
+                            </button>
+                        </div>
+                        <button onclick="indexDocuments()" class="hover:text-purple-600 transition">
+                            <i class="fas fa-sync-alt mr-1"></i>Reindex Documents
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let queryCount = 0;
+        let confidenceSum = 0;
+        let confidenceCount = 0;
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+            checkSystemHealth();
+        });
+
+        // Load system stats
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/documents/stats');
+                const data = await response.json();
+                
+                if (data.document_stats) {
+                    document.getElementById('doc-count').textContent = data.document_stats.total_chunks || 0;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Check system health
+        async function checkSystemHealth() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                
+                const statusEl = document.getElementById('system-status');
+                if (data.status === 'healthy') {
+                    statusEl.textContent = 'Ready';
+                    statusEl.classList.add('text-green-600');
+                } else {
+                    statusEl.textContent = 'Indexing';
+                    statusEl.classList.add('text-yellow-600');
+                }
+            } catch (error) {
+                document.getElementById('system-status').textContent = 'Error';
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('query-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const input = document.getElementById('query-input');
+            const question = input.value.trim();
+            
+            if (!question) return;
+            
+            // Add user message
+            addMessage(question, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            try {
+                const response = await fetch('/api/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question: question,
+                        top_k: 3
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+                
+                const data = await response.json();
+                
+                // Remove typing indicator
+                removeTypingIndicator();
+                
+                // Add bot response
+                addMessage(data.answer, 'bot', data.confidence, data.retrieved_documents);
+                
+                // Update stats
+                queryCount++;
+                confidenceSum += data.confidence;
+                confidenceCount++;
+                
+                document.getElementById('query-count').textContent = queryCount;
+                document.getElementById('avg-confidence').textContent = 
+                    Math.round((confidenceSum / confidenceCount) * 100) + '%';
+                
+            } catch (error) {
+                removeTypingIndicator();
+                addMessage('Sorry, I encountered an error. Please make sure documents are indexed first.', 'bot', 0);
+                console.error('Error:', error);
+            }
+        });
+
+        // Add message to chat
+        function addMessage(text, type, confidence = null, sources = null) {
+            const messagesDiv = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `fade-in ${type === 'user' ? 'flex justify-end' : 'flex justify-start'}`;
+            
+            let confidenceClass = '';
+            let confidenceText = '';
+            if (confidence !== null) {
+                if (confidence > 0.7) {
+                    confidenceClass = 'confidence-high';
+                    confidenceText = 'High';
+                } else if (confidence > 0.4) {
+                    confidenceClass = 'confidence-medium';
+                    confidenceText = 'Medium';
+                } else {
+                    confidenceClass = 'confidence-low';
+                    confidenceText = 'Low';
+                }
+            }
+            
+            let sourcesHtml = '';
+            if (sources && sources.length > 0) {
+                sourcesHtml = '<div class="mt-3 space-y-2">';
+                sourcesHtml += '<p class="text-xs font-semibold text-gray-600 mb-2"><i class="fas fa-book mr-1"></i>Sources:</p>';
+                sources.forEach((source, idx) => {
+                    sourcesHtml += `
+                        <div class="bg-white border border-gray-200 rounded-lg p-2 text-xs">
+                            <div class="flex items-start justify-between mb-1">
+                                <span class="source-badge text-white px-2 py-1 rounded-full text-xs font-medium">
+                                    ${source.source}
+                                </span>
+                                <span class="text-gray-500">Score: ${(source.score * 100).toFixed(0)}%</span>
+                            </div>
+                            <p class="text-gray-600 line-clamp-2">${source.content}</p>
+                        </div>
+                    `;
+                });
+                sourcesHtml += '</div>';
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="${type === 'user' ? 'message-user' : 'message-bot'} rounded-2xl px-6 py-4 max-w-2xl">
+                    <div class="flex items-start space-x-3">
+                        ${type === 'bot' ? '<i class="fas fa-robot text-purple-600 text-xl"></i>' : ''}
+                        <div class="flex-1">
+                            <p class="text-${type === 'user' ? 'white' : 'gray-800'} leading-relaxed">${text}</p>
+                            ${confidence !== null ? `
+                                <div class="mt-3 flex items-center space-x-2">
+                                    <span class="${confidenceClass} text-white px-3 py-1 rounded-full text-xs font-medium">
+                                        <i class="fas fa-check-circle mr-1"></i>Confidence: ${confidenceText} (${(confidence * 100).toFixed(0)}%)
+                                    </span>
+                                </div>
+                            ` : ''}
+                            ${sourcesHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const messagesDiv = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex justify-start fade-in';
+            typingDiv.innerHTML = `
+                <div class="message-bot rounded-2xl px-6 py-4">
+                    <div class="typing-indicator flex space-x-2">
+                        <span class="w-2 h-2 bg-gray-400 rounded-full"></span>
+                        <span class="w-2 h-2 bg-gray-400 rounded-full"></span>
+                        <span class="w-2 h-2 bg-gray-400 rounded-full"></span>
+                    </div>
+                </div>
+            `;
+            messagesDiv.appendChild(typingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Remove typing indicator
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Ask suggested question
+        function askSuggestion(question) {
+            document.getElementById('query-input').value = question;
+            document.getElementById('query-form').dispatchEvent(new Event('submit'));
+        }
+
+        // Clear chat
+        function clearChat() {
+            if (confirm('Clear all messages?')) {
+                const messagesDiv = document.getElementById('chat-messages');
+                messagesDiv.innerHTML = `
+                    <div class="text-center py-12 fade-in">
+                        <div class="bg-gradient-to-r from-purple-100 to-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-robot text-4xl text-purple-600"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Chat Cleared</h2>
+                        <p class="text-gray-600">Start a new conversation!</p>
+                    </div>
+                `;
+                queryCount = 0;
+                confidenceSum = 0;
+                confidenceCount = 0;
+                document.getElementById('query-count').textContent = '0';
+                document.getElementById('avg-confidence').textContent = '--%';
+            }
+        }
+
+        // Index documents
+        async function indexDocuments() {
+            if (!confirm('Reindex all documents? This may take a few minutes.')) return;
+            
+            const statusEl = document.getElementById('system-status');
+            statusEl.textContent = 'Indexing...';
+            
+            try {
+                const response = await fetch('/api/index', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ reindex: true })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusEl.textContent = 'Ready';
+                    document.getElementById('doc-count').textContent = data.documents_indexed;
+                    alert(`Successfully indexed ${data.documents_indexed} documents!`);
+                } else {
+                    statusEl.textContent = 'Error';
+                    alert('Indexing failed: ' + data.detail);
+                }
+            } catch (error) {
+                statusEl.textContent = 'Error';
+                alert('Error during indexing');
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
