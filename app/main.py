@@ -42,7 +42,7 @@ templates = Jinja2Templates(directory=templates_dir)
 # Include API routes
 app.include_router(api_router, prefix="/api", tags=["RAG API"])
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
 async def root(request: Request):
     """Serve the main frontend interface"""
     try:
@@ -54,7 +54,8 @@ async def root(request: Request):
     except Exception as e:
         logger.error(f"Error loading template: {str(e)}")
         # Fallback to JSON response if template not found
-        return {
+        from fastapi.responses import JSONResponse
+        return JSONResponse({
             "name": settings.APP_NAME,
             "version": settings.APP_VERSION,
             "status": "running",
@@ -66,7 +67,7 @@ async def root(request: Request):
                 "index": "/api/index",
                 "stats": "/api/documents/stats"
             }
-        }
+        })
 
 @app.get("/health-json")
 async def health_json():
