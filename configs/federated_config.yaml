@@ -1,0 +1,46 @@
+Save this as: configs/federated_config.yaml
+
+# Federated Learning Configuration
+
+clients:
+  num_clients: 3
+  departments: ['hr', 'it', 'legal']
+  use_dp: true
+  epsilon: 1.0
+  delta: 1e-5
+  max_grad_norm: 1.0
+
+training:
+  rounds: 10
+  local_epochs: 5
+  batch_size: 4
+  learning_rate: 0.0001
+  client_fraction: 1.0
+
+models:
+  retriever: "sentence-transformers/paraphrase-MiniLM-L3-v2"
+  generator: "google/flan-t5-small"
+  vector_dim: 384
+
+aggregation:
+  method: "fedavg"  # Options: fedavg, fedprox, scaffold
+  mu: 0.01  # FedProx parameter
+
+evaluation:
+  metrics: ['accuracy', 'f1', 'privacy_cost', 'communication']
+  test_queries:
+    - "What is the annual leave policy?"
+    - "What is the password policy?"
+    - "What compliance certifications does the company have?"
+    - "How often are backups performed?"
+    - "What is the data retention policy?"
+  
+experiment:
+  name: "federated_rag_experiment"
+  save_checkpoints: true
+  checkpoint_frequency: 2
+  
+privacy:
+  track_epsilon: true
+  max_epsilon: 5.0
+  noise_multiplier: 1.0

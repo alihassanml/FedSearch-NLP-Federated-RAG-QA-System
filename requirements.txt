@@ -3,14 +3,22 @@ uvicorn[standard]
 python-multipart
 pydantic
 pydantic-settings
+jinja2
 torch
 transformers
 sentence-transformers
-accelerate
 faiss-cpu
 numpy
 pandas
 python-dotenv
 aiofiles
-peft
-bitsandbytes
+opacus              # Differential Privacy
+cryptography        # Encryption
+pyyaml              # Config files
+matplotlib          # Plotting
+seaborn             # Visualization
+scikit-learn        # Metrics
+tensorboard         # Training logs
+tqdm                # Progress bars
+flower              # Federated Learning framework
+ray                 # Distributed computing (optional)
