@@ -1,0 +1,36 @@
+ACME Corporation - IT Standard Operating Procedures
+
+1. SYSTEM ACCESS
+- New employee access provisioned within 24 hours
+- Default access: Email, intranet, project tools
+- Special access requires manager approval
+- Access reviews conducted quarterly
+
+2. PASSWORD POLICY
+- Minimum 12 characters required
+- Must include uppercase, lowercase, numbers, symbols
+- Password expiry: Every 90 days
+- No password reuse for last 5 passwords
+- Multi-factor authentication (MFA) mandatory
+
+3. DATA BACKUP
+- Automated daily backups at 2:00 AM
+- Weekly full backups on Sundays
+- Monthly archives stored off-site
+- Backup retention: Daily (7 days), Weekly (4 weeks), Monthly (12 months)
+
+4. INCIDENT REPORTING
+- Security incidents reported immediately to security@acme.com
+- IT helpdesk: extension 5555, helpdesk@acme.com
+- Priority levels: Critical (1h), High (4h), Medium (1d), Low (3d)
+
+5. SOFTWARE MANAGEMENT
+- Only approved software from company catalog
+- Request new software through IT portal
+- Personal software prohibited on company devices
+
+6. NETWORK SECURITY
+- VPN required for remote access
+- Guest WiFi available for visitors
+- USB drives must be encrypted
+- Email attachments scanned automatically

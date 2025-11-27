@@ -1,5 +1,5 @@
 """
-Differential Privacy Implementation using DP-SGD
+Federated Aggregation Algorithms
 """
 
 import torch
@@ -9,83 +9,126 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class DifferentialPrivacy:
-    """Implements DP-SGD for privacy-preserving training"""
+class FedAvgAggregator:
+    """Federated Averaging (FedAvg) aggregation"""
     
-    def __init__(
+    def __init__(self, secure: bool = True):
+        self.secure = secure
+        self.round_number = 0
+    
+    def aggregate(
         self,
-        epsilon: float = 1.0,
-        delta: float = 1e-5,
-        max_grad_norm: float = 1.0,
-        noise_multiplier: float = 1.0
-    ):
-        self.epsilon = epsilon
-        self.delta = delta
-        self.max_grad_norm = max_grad_norm
-        self.noise_multiplier = noise_multiplier
-        self.privacy_spent = 0.0
+        client_models: List[Dict],
+        client_weights: List[float] = None
+    ) -> Dict:
+        """
+        Aggregate client models using weighted average
         
-        logger.info(f"DP initialized: ε={epsilon}, δ={delta}")
+        Args:
+            client_models: List of model state_dicts from clients
+            client_weights: Optional weights (e.g., by data size)
+        
+        Returns:
+            Aggregated global model state_dict
+        """
+        if not client_models:
+            raise ValueError("No client models to aggregate")
+        
+        self.round_number += 1
+        logger.info(f"Round {self.round_number}: Aggregating {len(client_models)} clients")
+        
+        # Default: equal weights
+        if client_weights is None:
+            client_weights = [1.0 / len(client_models)] * len(client_models)
+        
+        # Normalize weights
+        total_weight = sum(client_weights)
+        client_weights = [w / total_weight for w in client_weights]
+        
+        # Initialize global model with zeros
+        global_model = {}
+        
+        # Get all parameter names from first client
+        param_names = client_models[0].keys()
+        
+        # Weighted average for each parameter
+        for param_name in param_names:
+            # Stack all client parameters
+            params = torch.stack([
+                client_models[i][param_name] * client_weights[i]
+                for i in range(len(client_models))
+            ])
+            
+            # Sum across clients
+            global_model[param_name] = params.sum(dim=0)
+        
+        logger.info(f"Aggregation complete for round {self.round_number}")
+        
+        return global_model
     
-    def clip_gradients(
+    def secure_aggregate(
         self,
-        parameters: List[torch.Tensor],
-        max_norm: float = None
-    ) -> List[torch.Tensor]:
-        """Clip gradients to bound sensitivity"""
-        if max_norm is None:
-            max_norm = self.max_grad_norm
+        encrypted_models: List[bytes],
+        client_weights: List[float] = None
+    ) -> Dict:
+        """
+        Secure aggregation with encrypted model updates
+        (Simplified implementation)
+        """
+        # In practice, use secure multi-party computation
+        # This is a placeholder for the concept
         
-        # Calculate total norm
-        total_norm = torch.sqrt(
-            sum(p.grad.norm(2).item() ** 2 for p in parameters if p.grad is not None)
-        )
+        logger.info("Performing secure aggregation...")
         
-        # Clip if necessary
-        clip_coef = max_norm / (total_norm + 1e-6)
-        if clip_coef < 1:
-            for p in parameters:
-                if p.grad is not None:
-                    p.grad.mul_(clip_coef)
+        # Decrypt (in real implementation, use MPC)
+        client_models = [self._decrypt(model) for model in encrypted_models]
         
-        return parameters
+        # Regular aggregation on decrypted models
+        return self.aggregate(client_models, client_weights)
     
-    def add_noise(
+    def _decrypt(self, encrypted_model: bytes) -> Dict:
+        """Placeholder for decryption"""
+        # In practice, implement proper decryption
+        return encrypted_model
+
+
+class FedProxAggregator(FedAvgAggregator):
+    """FedProx: Handles heterogeneous data better"""
+    
+    def __init__(self, mu: float = 0.01, **kwargs):
+        super().__init__(**kwargs)
+        self.mu = mu  # Proximal term
+    
+    def aggregate(self, client_models: List[Dict], **kwargs) -> Dict:
+        """FedProx aggregation with proximal term"""
+        # Use FedAvg but clients use proximal term during training
+        return super().aggregate(client_models, **kwargs)
+
+
+class ScaffoldAggregator(FedAvgAggregator):
+    """SCAFFOLD: Uses control variates for better convergence"""
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.control_variates = {}
+    
+    def aggregate(
         self,
-        parameters: List[torch.Tensor],
-        sensitivity: float = None
-    ) -> List[torch.Tensor]:
-        """Add Gaussian noise to gradients"""
-        if sensitivity is None:
-            sensitivity = self.max_grad_norm
+        client_models: List[Dict],
+        client_controls: List[Dict] = None,
+        **kwargs
+    ) -> Dict:
+        """SCAFFOLD aggregation with control variates"""
         
-        noise_scale = sensitivity * self.noise_multiplier
+        # Update control variates
+        if client_controls:
+            self._update_controls(client_controls)
         
-        for p in parameters:
-            if p.grad is not None:
-                noise = torch.randn_like(p.grad) * noise_scale
-                p.grad.add_(noise)
-        
-        return parameters
+        # Regular aggregation
+        return super().aggregate(client_models, **kwargs)
     
-    def get_privacy_spent(self, steps: int, batch_size: int, data_size: int) -> Dict:
-        """Calculate privacy budget spent"""
-        # Simplified privacy accounting
-        sampling_rate = batch_size / data_size
-        self.privacy_spent += self.epsilon * sampling_rate * steps
-        
-        return {
-            'epsilon': self.privacy_spent,
-            'delta': self.delta,
-            'steps': steps
-        }
-    
-    def track_privacy(self, steps: int):
-        """Track cumulative privacy loss"""
-        # Using moments accountant (simplified)
-        alpha = self.noise_multiplier
-        self.privacy_spent += np.sqrt(2 * np.log(1.25 / self.delta)) / alpha
-        
-        logger.info(f"Privacy spent: ε={self.privacy_spent:.4f}")
-        
-        return self.privacy_spent
+    def _update_controls(self, client_controls: List[Dict]):
+        """Update global control variates"""
+        for key in client_controls[0].keys():
+            controls = [c[key] for c in client_controls]
+            self.control_variates[key] = torch.stack(controls).mean(dim=0)

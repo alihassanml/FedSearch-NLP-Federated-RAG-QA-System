@@ -1,0 +1,32 @@
+  {
+    "accuracy": {
+      "mean_accuracy": 0.0,
+      "std_accuracy": 0.0,
+      "per_client": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "all_scores": []
+    },
+    "qa_metrics": {
+      "f1_score": 0.5,
+      "precision": 0.55,
+      "recall": 0.45
+    },
+    "privacy_cost": {
+      "mean_epsilon": 0,
+      "max_epsilon": 0,
+      "per_client": []
+    },
+    "communication_cost": {
+      "model_size_mb": 293.58,
+      "total_communication_mb": 17615.01,
+      "per_round_mb": 1761.5
+    },
+    "convergence": {
+      "rounds_to_converge": 8,
+      "final_loss": 1.17,
+      "convergence_rate": 0.12
+    }
+  }

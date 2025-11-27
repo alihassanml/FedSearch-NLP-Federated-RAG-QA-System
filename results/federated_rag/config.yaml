@@ -1,0 +1,44 @@
+Save this as: configs/federated_config.yaml
+aggregation:
+  method: fedavg
+  mu: 0.01
+clients:
+  delta: 1e-5
+  departments:
+  - hr
+  - it
+  - legal
+  epsilon: 1.0
+  max_grad_norm: 1.0
+  num_clients: 3
+  use_dp: false
+evaluation:
+  metrics:
+  - accuracy
+  - f1
+  - privacy_cost
+  - communication
+  test_queries:
+  - What is the annual leave policy?
+  - What is the password policy?
+  - What compliance certifications does the company have?
+  - How often are backups performed?
+  - What is the data retention policy?
+experiment:
+  checkpoint_frequency: 2
+  name: federated_rag_experiment
+  save_checkpoints: true
+models:
+  generator: google/flan-t5-small
+  retriever: sentence-transformers/paraphrase-MiniLM-L3-v2
+  vector_dim: 384
+privacy:
+  max_epsilon: 5.0
+  noise_multiplier: 1.0
+  track_epsilon: true
+training:
+  batch_size: 4
+  client_fraction: 1.0
+  learning_rate: 0.0001
+  local_epochs: 5
+  rounds: 10

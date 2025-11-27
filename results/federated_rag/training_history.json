@@ -1,0 +1,92 @@
+[
+  {
+    "round": 1,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 2,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 3,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 4,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 5,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 6,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 7,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 8,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 9,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "round": 10,
+    "avg_accuracy": 0.0,
+    "client_accuracies": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  }
+]

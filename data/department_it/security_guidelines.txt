@@ -1,0 +1,19 @@
+IT Security Guidelines
+
+DEVICE SECURITY
+- Screen lock after 5 minutes
+- Full disk encryption required
+- Antivirus must be updated
+- Lost devices reported within 2 hours
+
+REMOTE WORK
+- Use company VPN only
+- Secure home WiFi networks
+- No public WiFi for sensitive data
+- Virtual desktop for high-security work
+
+DATA HANDLING
+- Sensitive data encryption required
+- No personal cloud storage
+- Secure file sharing via company tools
+- Data classification: Public, Internal, Confidential, Secret

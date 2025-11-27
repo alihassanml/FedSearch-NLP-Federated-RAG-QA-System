@@ -1,5 +1,6 @@
 """
 Differential Privacy Implementation using DP-SGD
+FIXED VERSION - Corrected gradient clipping bug
 """
 
 import torch
@@ -36,13 +37,18 @@ class DifferentialPrivacy:
         if max_norm is None:
             max_norm = self.max_grad_norm
         
-        # Calculate total norm
-        total_norm = torch.sqrt(
-            sum(p.grad.norm(2).item() ** 2 for p in parameters if p.grad is not None)
+        # Calculate total norm - FIXED VERSION
+        total_norm_sq = sum(
+            p.grad.norm(2).item() ** 2 
+            for p in parameters 
+            if p.grad is not None
         )
         
+        # Convert to tensor before sqrt
+        total_norm = torch.sqrt(torch.tensor(total_norm_sq))
+        
         # Clip if necessary
-        clip_coef = max_norm / (total_norm + 1e-6)
+        clip_coef = max_norm / (total_norm.item() + 1e-6)
         if clip_coef < 1:
             for p in parameters:
                 if p.grad is not None:

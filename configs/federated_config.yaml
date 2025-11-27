@@ -5,7 +5,7 @@ Save this as: configs/federated_config.yaml
 clients:
   num_clients: 3
   departments: ['hr', 'it', 'legal']
-  use_dp: true
+  use_dp: false
   epsilon: 1.0
   delta: 1e-5
   max_grad_norm: 1.0
